@@ -16,17 +16,10 @@ class TransacaoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transacao
-        fields = ["id", "origem", "origem_titular", "destino", "destino_titular",
-                  "valor", "criada_em"]
+        fields = ["id", "origem", "origem_titular", "destino", "destino_titular", "valor", "criada_em"]
 
 
 class TransferenciaSerializer(serializers.Serializer):
     origem_id = serializers.IntegerField()
     destino_id = serializers.IntegerField()
-    valor = serializers.DecimalField(max_digits=12, decimal_places=2,
-                                     min_value=Decimal("0.01"))
-
-    def validate(self, data):
-        if data["origem_id"] == data["destino_id"]:
-            raise serializers.ValidationError("Origem e destino devem ser diferentes.")
-        return data
+    valor = serializers.DecimalField(max_digits=12, decimal_places=2, min_value=Decimal("0.01"))

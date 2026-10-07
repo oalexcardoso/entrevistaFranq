@@ -1,0 +1,59 @@
+{% extends "contas/base.html" %}
+{% block titulo %}Transferir{% endblock %}
+{% block cabecalho %}Nova transferência{% endblock %}
+{% block conteudo %}
+    {% if cotacao_dolar %}
+        <span class="cotacao">Dólar hoje (PTAX/BCB): compra R$ {{ cotacao_dolar.compra }} · venda R$ {{ cotacao_dolar.venda }}</span>
+    {% else %}
+        <span class="cotacao">Cotação do dólar indisponível no momento</span>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="idempotency_key" value="{{ idempotency_key }}">
+        <div>
+            <label for="origem_id">Conta de origem (suas contas)</label>
+            <select name="origem_id" id="origem_id" required>
+                <option value="">Selecione</option>
+                {% for conta in minhas_contas %}
+                    <option value="{{ conta.id }}">{{ conta.titular }} (R$ {{ conta.saldo }})</option>
+                {% empty %}
+                    <option value="" disabled>Você ainda não tem nenhuma conta</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="destino_id">Conta de destino</label>
+            <select name="destino_id" id="destino_id" required>
+                <option value="">Selecione</option>
+                {% for conta in contas %}
+                    <option value="{{ conta.id }}">{{ conta.titular }} (R$ {{ conta.saldo }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="valor">Valor (R$)</label>
+            <input type="number" name="valor" id="valor" step="0.01" min="0.01" required>
+        </div>
+        <button type="submit">Transferir</button>
+    </form>
+
+    <h2>Últimas transferências</h2>
+    <table>
+        <thead>
+            <tr><th>Origem</th><th>Destino</th><th>Valor</th><th>Data</th></tr>
+        </thead>
+        <tbody>
+            {% for t in ultimas %}
+                <tr>
+                    <td>{{ t.origem.titular }}</td>
+                    <td>{{ t.destino.titular }}</td>
+                    <td>R$ {{ t.valor }}</td>
+                    <td>{{ t.criada_em|date:"d/m/Y H:i" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4">Nenhuma transferência ainda.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

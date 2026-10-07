@@ -1,0 +1,10 @@
+.msg {
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    border-left: 4px solid transparent;
+}
+.msg.success { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+.msg.error { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.msg.info { background: var(--tint); color: var(--primary-dark); border-color: var(--primary); }

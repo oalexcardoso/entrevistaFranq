@@ -1,0 +1,41 @@
+.topbar {
+    background: var(--navy);
+    color: #fff;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--primary);
+    display: inline-block;
+}
+.brand span { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; }
+
+nav { display: flex; gap: 4px; }
+nav a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: background 0.15s, color 0.15s;
+}
+nav a:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+nav a.ativo { background: var(--primary); color: #fff; }
+
+.sair button {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.sair button:hover { background: rgba(255, 255, 255, 0.1); }

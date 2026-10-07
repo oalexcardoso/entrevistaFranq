@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'contas/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'contas/css/topbar.css' %}">
+    <link rel="stylesheet" href="{% static 'contas/css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'contas/css/messages.css' %}">
+    <link rel="stylesheet" href="{% static 'contas/css/tables.css' %}">
+</head>
+<body>
+    <div class="topbar">
+        <div class="brand">
+        </div>
+        {% if user.is_authenticated %}
+            <nav>
+                <a href="{% url 'transferir' %}" class="{% if request.resolver_match.url_name == 'transferir' %}ativo{% endif %}">Transferir</a>
+                <a href="{% url 'criar_conta' %}" class="{% if request.resolver_match.url_name == 'criar_conta' %}ativo{% endif %}">Criar conta</a>
+            </nav>
+            <form class="sair" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Sair ({{ user.username }})</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <main>
+        <div class="card">
+            <h1>{% block cabecalho %}{% endblock %}</h1>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="msg {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% block conteudo %}{% endblock %}
+        </div>
+    </main>
+</body>
+</html>

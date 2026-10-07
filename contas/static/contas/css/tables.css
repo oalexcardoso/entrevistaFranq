@@ -1,0 +1,11 @@
+table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.88rem; }
+th {
+    text-align: left;
+    padding: 8px 10px;
+    background: var(--tint);
+    color: var(--navy-soft);
+    font-weight: 600;
+}
+th:first-child { border-radius: 8px 0 0 8px; }
+th:last-child { border-radius: 0 8px 8px 0; }
+td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }

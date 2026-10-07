@@ -1,0 +1,25 @@
+{% extends "contas/base.html" %}
+{% block titulo %}Criar usuário{% endblock %}
+{% block cabecalho %}Criar usuário e conta{% endblock %}
+{% block conteudo %}
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="username">Usuário</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+        <div>
+            <label for="password">Senha</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div>
+            <label for="titular">Titular da conta</label>
+            <input type="text" name="titular" id="titular" maxlength="100" required>
+        </div>
+        <div>
+            <label for="saldo">Saldo inicial (R$)</label>
+            <input type="number" name="saldo" id="saldo" step="0.01" value="0.00" required>
+        </div>
+        <button type="submit">Criar usuário e conta</button>
+    </form>
+{% endblock %}
